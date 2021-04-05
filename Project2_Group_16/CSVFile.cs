@@ -9,9 +9,9 @@ namespace Project2_Group_16
         /// <summary>
         /// Dump the content of the CSV file to a list
         /// </summary>
-        public static List<string> CSVDeserialize()
+        public static List<string> CSVDeserialize(string fileName)
         {
-            List<string> csvData = new List<string>(File.ReadAllLines("Project 2_INFO_5101.csv"));
+            List<string> csvData = new List<string>(File.ReadAllLines(fileName));
             // remove header
             csvData.RemoveAt(0);
 

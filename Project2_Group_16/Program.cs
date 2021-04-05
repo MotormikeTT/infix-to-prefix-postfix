@@ -11,7 +11,7 @@ namespace Project2_Group_16
         static void Main()
         {
             // first let's parse the csv file to get infix expressions
-            List<string> inFix = CSVFile.CSVDeserialize();
+            List<string> inFix = CSVFile.CSVDeserialize("Project 2_INFO_5101.csv");
 
             // create the lists that would hold the converted values
             List<PreFix> preFix = new List<PreFix>();
