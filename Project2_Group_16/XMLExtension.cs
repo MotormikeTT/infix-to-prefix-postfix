@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Serialization;
 using System.IO;
+using System.Diagnostics;
 
 namespace Project2_Group_16
 {
@@ -46,8 +44,7 @@ namespace Project2_Group_16
         {
             try
             {
-                FileStream fs = new FileStream("Project 2_Info_5101.xml", FileMode.Create);
-                //FileStream fs = new FileStream("../../../Data/Project 2_Info_5101.xml", FileMode.Create);
+                FileStream fs = new FileStream("../../Data/Project 2_INFO_5101.xml", FileMode.Create);
                 StreamWriter writer = new StreamWriter(fs, Encoding.UTF8);
                 int i = 0;
                 writer.WriteStartDocument();
@@ -76,6 +73,15 @@ namespace Project2_Group_16
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+        // Open XML file on web browser
+        public static void OpenXMLWeb()
+        {
+            FileStream fs = new FileStream("../../Data/Project 2_INFO_5101.xml", FileMode.Open);
+            Process process = new Process();
+            process.StartInfo.UseShellExecute = true;
+            process.StartInfo.FileName = fs.Name;
+            process.Start();
         }
     }
 }

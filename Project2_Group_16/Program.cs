@@ -13,7 +13,7 @@ namespace Project2_Group_16
         static void Main()
         {
             // first let's parse the csv file to get infix expressions
-            List<string> inFix = CSVFile.CSVDeserialize("Project 2_INFO_5101.csv");
+            List<string> inFix = CSVFile.CSVDeserialize("../../Data/Project 2_INFO_5101.csv");
 
             // create the lists that would hold the converted values
             List<PreFix> preFix = new List<PreFix>();
@@ -51,17 +51,16 @@ namespace Project2_Group_16
             }
             Console.WriteLine($"\n{"".PadRight(113, '=')}");
 
-            // XML
+            // write XML file
             XMLExtension.WriteXMLFile(inFix, preFix, postFix);
 
-            //Console.Write("XML file generated. Would you like to open in a web browser? (Y/N): ");
-            //string input = Console.ReadLine();
-            //if (input.ToLower() == "y")
-            //{
-
-            //}
-
-            Console.ReadKey();
+            Console.Write($"\nXML file generated. Would you like to open in a web browser? (Y/N): ");
+            string input = Console.ReadLine();
+            if (input.ToLower() == "y")
+            {
+                // open XML file in web browser
+                XMLExtension.OpenXMLWeb();
+            }
         }
     }
 }
