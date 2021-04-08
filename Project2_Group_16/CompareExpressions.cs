@@ -8,7 +8,6 @@ namespace Project2_Group_16
     /// </summary>
     class CompareExpressions : IComparer<string>
     {
-
         public int Compare(string value1, string value2)
         {
             double v1 = Double.Parse(value1);

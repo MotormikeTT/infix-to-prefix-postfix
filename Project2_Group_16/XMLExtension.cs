@@ -7,6 +7,9 @@ using System.Diagnostics;
 
 namespace Project2_Group_16
 {
+    /// <summary>
+    /// Class containing XML extensions that are used to write an XML document
+    /// </summary>
     public static class XMLExtension
     {
         // This method includes xml version and encoding
