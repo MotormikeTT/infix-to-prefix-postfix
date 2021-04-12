@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="CompareExpressions.cs" />
     <Compile Include="CSVFile.cs" />
+    <Compile Include="ExpressionEvaluation.cs" />
     <Compile Include="PostFix.cs" />
     <Compile Include="PreFix.cs" />
     <Compile Include="Program.cs" />

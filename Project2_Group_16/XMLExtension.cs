@@ -49,6 +49,7 @@ namespace Project2_Group_16
             {
                 FileStream fs = new FileStream("../../Data/Project 2_INFO_5101.xml", FileMode.Create);
                 StreamWriter writer = new StreamWriter(fs, Encoding.UTF8);
+                CompareExpressions compare = new CompareExpressions();
                 int i = 0;
                 writer.WriteStartDocument();
                 writer.WriteStartRootElement();
@@ -61,8 +62,8 @@ namespace Project2_Group_16
                     writer.WriteAttribute("infix", snoAndInfix[1].ToString());
                     writer.WriteAttribute("prefix", preFix[i].ToString());
                     writer.WriteAttribute("postfix", postFix[i].ToString());
-                    writer.WriteAttribute("evaluation", "");
-                    writer.WriteAttribute("comparison", "");
+                    writer.WriteAttribute("evaluation", preFix[i].Result);
+                    writer.WriteAttribute("comparison", Convert.ToBoolean(compare.Compare(preFix[i].Result, postFix[i].Result)).ToString());
                     writer.WriteEndElement();
 
                     i++;

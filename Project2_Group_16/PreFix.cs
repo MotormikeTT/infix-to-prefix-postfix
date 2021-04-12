@@ -10,6 +10,8 @@ namespace Project2_Group_16
     public class PreFix
     {
         string value;
+        
+        public string Result { get; private set; }
 
         // ctor that will convert from infix notation to prefix
         public PreFix(string inFix)
@@ -55,6 +57,8 @@ namespace Project2_Group_16
             }
 
             value = new string(output.Reverse().ToArray());
+
+            Result = ExpressionEvaluation.evaluatePrefix(this);
         }
 
         // helper method

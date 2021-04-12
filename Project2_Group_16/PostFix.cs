@@ -12,6 +12,8 @@ namespace Project2_Group_16
     {
         string value = string.Empty;
 
+        public string Result { get; private set; }
+
         // ctor that will convert from infix notation to postfix
         public PostFix(string inFix)
         {
@@ -56,6 +58,8 @@ namespace Project2_Group_16
             }
 
             value = output;
+
+            Result = ExpressionEvaluation.evaluatePostfix(this);
         }
 
         // helper method

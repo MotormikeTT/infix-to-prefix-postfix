@@ -12,6 +12,8 @@ namespace Project2_Group_16
     {
         static void Main()
         {
+            CompareExpressions compare = new CompareExpressions();
+
             // first let's parse the csv file to get infix expressions
             List<string> inFix = CSVFile.CSVDeserialize("../../Data/Project 2_INFO_5101.csv");
 
@@ -43,9 +45,9 @@ namespace Project2_Group_16
                 Console.Write($"{snoAndInfix[1],20}|");
                 Console.Write($"{preFix[i],20}|");
                 Console.Write($"{postFix[i],20}|");
-                Console.Write($"{"",15}|");    // result
-                Console.Write($"{"",15}|");    // result
-                Console.Write($"{"",10}|");    // match
+                Console.Write($"{preFix[i].Result,15}|");    // result
+                Console.Write($"{postFix[i].Result,15}|");    // result
+                Console.Write($"{Convert.ToBoolean(compare.Compare(preFix[i].Result, postFix[i].Result)), 10}|");    // match
 
                 i++;
             }
