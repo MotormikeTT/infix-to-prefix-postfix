@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 
 namespace Project2_Group_16
 {
+    /// <summary>
+    /// Main code that is executed first
+    /// </summary>
     class Program
     {
         static void Main()
         {
+            // to compare the different expression results
             CompareExpressions compare = new CompareExpressions();
 
             // first let's parse the csv file to get infix expressions

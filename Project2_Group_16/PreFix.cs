@@ -58,7 +58,8 @@ namespace Project2_Group_16
 
             value = new string(output.Reverse().ToArray());
 
-            Result = ExpressionEvaluation.evaluatePrefix(this);
+            Result = ExpressionEvaluation.Evaluate(this);
+            System.Console.Write($"Infix: {inFix}\nPrefix: {value} Prefix Evaluation: {Result}\n");
         }
 
         // helper method

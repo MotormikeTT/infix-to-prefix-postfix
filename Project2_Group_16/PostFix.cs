@@ -59,7 +59,8 @@ namespace Project2_Group_16
 
             value = output;
 
-            Result = ExpressionEvaluation.evaluatePostfix(this);
+            Result = ExpressionEvaluation.Evaluate(this);
+            System.Console.Write($"Postfix: {value} Postfix Evaluation: {Result}\n\n");
         }
 
         // helper method

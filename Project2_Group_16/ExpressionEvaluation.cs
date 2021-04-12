@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project2_Group_16
 {
+    /// <summary>
+    /// Evaluates the different types of expressions, either Prefix or Postfix and returns the result
+    /// </summary>
     class ExpressionEvaluation
     {
-        static Expression<Func<double, double, double>> add = (a, b) => a + b;
-        static Expression<Func<double, double, double>> subtract = (a, b) => a - b;
-        static Expression<Func<double, double, double>> multiply = (a, b) => a * b;
-        static Expression<Func<double, double, double>> divide = (a, b) => a / b;
+        // Private Properties
+        private static Stack<Expression> stack = new Stack<Expression>();
 
-        static Stack<double> stack = new Stack<double>();
-
-        static bool isOperand(char c)
+        // Helper method to tell if a character is an operand or not
+        private static bool isOperand(char c)
         {
             // If the character is a digit
             // then it must be an operand
@@ -26,7 +23,25 @@ namespace Project2_Group_16
                 return false;
         }
 
-        public static string evaluatePrefix(PreFix exprsn)
+        // Builds a binary expression from the 2 expressions and an operator
+        private static Expression buildExpression(Expression a, Expression b, char op)
+        {
+            switch (op)
+            {
+                case '+':
+                    return Expression.Add(a, b);
+                case '-':
+                    return Expression.Subtract(a, b);
+                case '/':
+                    return Expression.Divide(a, b);
+                case '*':
+                    return Expression.Multiply(a, b);
+            }
+            throw new NotSupportedException();
+        }
+
+        // Method to evaluate a Prefix Expression
+        public static string Evaluate(PreFix exprsn)
         {
             for (int j = exprsn.ToString().Length - 1; j >= 0; j--)
             {
@@ -34,47 +49,26 @@ namespace Project2_Group_16
                 // To convert exprsn[j] to digit subtract
                 // '0' from exprsn[j].
                 if (isOperand(exprsn.ToString()[j]))
-                    stack.Push((double)(exprsn.ToString()[j] - 48));
-
+                    stack.Push(Expression.Constant((double)(exprsn.ToString()[j] - 48), typeof(double)));
                 else
                 {
-
                     // Operator encountered
                     // Pop two elements from Stack
-                    double o1 = stack.Peek();
-                    stack.Pop();
-                    double o2 = stack.Peek();
-                    stack.Pop();
+                    Expression a = stack.Pop();
+                    Expression b = stack.Pop();
 
                     // Use switch case to operate on o1
                     // and o2 and perform o1 O o2.
-                    switch (exprsn.ToString()[j])
-                    {
-                        case '+':
-                            var addCompiled = add.Compile();
-                            stack.Push(addCompiled(o1, o2));
-                            break;
-                        case '-':
-                            var subtractCompiled = subtract.Compile();
-                            stack.Push(subtractCompiled(o1, o2));
-                            break;
-                        case '*':
-                            var multiplyCompiled = multiply.Compile();
-                            stack.Push(multiplyCompiled(o1, o2));
-                            break;
-                        case '/':
-                            var divideCompiled = divide.Compile();
-                            stack.Push(divideCompiled(o1, o2));
-                            break;
-                    }
+                    stack.Push(buildExpression(a, b, exprsn.ToString()[j]));
                 }
             }
 
-            return stack.Peek().ToString();
+            var compiledExpression = Expression.Lambda<Func<double>>(stack.Peek()).Compile();
+            return compiledExpression().ToString();
         }
 
-        public static string evaluatePostfix(PostFix exprsn)
-        //evaluation method
+        // Method to evaluate a Postfix Expression
+        public static string Evaluate(PostFix exprsn)
         {
             for (int j = 0; j < exprsn.ToString().Length; j++)
             {
@@ -82,42 +76,21 @@ namespace Project2_Group_16
                 // To convert exprsn[j] to digit subtract
                 // '0' from exprsn[j].
                 if (isOperand(exprsn.ToString()[j]))
-                    stack.Push((double)(exprsn.ToString()[j] - 48));
-
+                    stack.Push(Expression.Constant((double)(exprsn.ToString()[j] - 48), typeof(double)));
                 else
                 {
                     // Operator encountered
                     // Pop two elements from Stack
-                    double o1 = stack.Peek();
-                    stack.Pop();
-                    double o2 = stack.Peek();
-                    stack.Pop();
+                    Expression b = stack.Pop();
+                    Expression a = stack.Pop();
 
                     // Use switch case to operate on o1
                     // and o2 and perform o1 O o2.
-                    switch (exprsn.ToString()[j])
-                    {
-                        case '+':
-                            var addCompiled = add.Compile();
-                            stack.Push(addCompiled(o2, o1));
-                            break;
-                        case '-':
-                            var subtractCompiled = subtract.Compile();
-                            stack.Push(subtractCompiled(o2, o1));
-                            break;
-                        case '*':
-                            var multiplyCompiled = multiply.Compile();
-                            stack.Push(multiplyCompiled(o2, o1));
-                            break;
-                        case '/':
-                            var divideCompiled = divide.Compile();
-                            stack.Push(divideCompiled(o2, o1));
-                            break;
-                    }
+                    stack.Push(buildExpression(a, b, exprsn.ToString()[j]));
                 }
             }
-
-            return stack.Peek().ToString();
+            var compiledExpression = Expression.Lambda<Func<double>>(stack.Peek()).Compile();
+            return compiledExpression().ToString();
         }
     }
 }
